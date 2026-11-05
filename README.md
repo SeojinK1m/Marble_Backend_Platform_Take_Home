@@ -1,5 +1,9 @@
 # Marble candidate packet
 
+> **Submission:** setup and demo commands are in [RUNBOOK.md](RUNBOOK.md);
+> design in [ARCHITECTURE.md](ARCHITECTURE.md); verification record and
+> limitations in [NOTES.md](NOTES.md); measurements in `BENCH_RESULTS.json`.
+
 Start here. Everything is synthetic.
 
 ## Setup
