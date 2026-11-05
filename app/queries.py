@@ -130,16 +130,20 @@ def usage(conn, site_id: str, ingredient_id: str, start: str, end: str) -> dict:
     rows_scanned = sum(s["row_count"] for s in sales)
 
     totals_by_unit: dict[str, Decimal] = {}
-    sources, items_without_recipe = [], {}
+    sources, items_without_recipe, sold_before_effective = [], {}, {}
     for s in sales:
         candidates = [r for r in recipes_by_item.get(s["pos_item_id"], [])
                       if r["effective_from"] <= s["business_date"]]
         if not candidates:
-            if s["pos_item_id"] not in items_with_any_recipe:
+            if recipes_by_item.get(s["pos_item_id"]):
+                # A recipe for this ingredient exists but was not yet effective
+                # on the sale date: usage is unknown for that sale, not zero.
+                sold_before_effective.setdefault(s["pos_item_id"], 0)
+                sold_before_effective[s["pos_item_id"]] += s["sold"]
+            elif s["pos_item_id"] not in items_with_any_recipe:
                 items_without_recipe.setdefault(s["pos_item_id"], 0)
                 items_without_recipe[s["pos_item_id"]] += s["sold"]
-            # else: recipe exists but omits this ingredient (known zero) or is
-            # not yet effective on this date — either way, no usage contribution.
+            # else: a recipe exists but omits this ingredient — known zero.
             continue
         recipe = max(candidates, key=lambda r: r["effective_from"])
         per_portion = _dec(recipe["quantity"]) / _dec(recipe["yield_portions"])
@@ -156,13 +160,18 @@ def usage(conn, site_id: str, ingredient_id: str, start: str, end: str) -> dict:
             "usage": str(used), "unit": unit,
         })
 
-    for item_id, sold in sorted(items_without_recipe.items()):
-        menu_row = conn.execute(
+    def _menu_name(item_id):
+        row = conn.execute(
             "SELECT name FROM menu WHERE site_id=? AND pos_item_id=?", (site_id, item_id)
         ).fetchone()
-        item_name = menu_row["name"] if menu_row else item_id
-        gaps.append(f"{item_name} ({item_id}) sold {sold} in the period but has no recipe "
-                    f"covering {ingredient_id}: its usage is unknown, not zero.")
+        return row["name"] if row else item_id
+
+    for item_id, sold in sorted(items_without_recipe.items()):
+        gaps.append(f"{_menu_name(item_id)} ({item_id}) sold {sold} in the period but has "
+                    f"no recipe covering {ingredient_id}: its usage is unknown, not zero.")
+    for item_id, sold in sorted(sold_before_effective.items()):
+        gaps.append(f"{_menu_name(item_id)} ({item_id}) sold {sold} before any recipe for "
+                    f"{ingredient_id} was effective: that usage is unknown, not zero.")
     gaps.append("Theoretical usage is recipe math over POS sales; it is not a measured "
                 "stock ledger (no waste records or intermediate counts exist).")
     return {

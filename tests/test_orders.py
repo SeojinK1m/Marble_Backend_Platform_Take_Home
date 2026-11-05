@@ -82,7 +82,10 @@ def test_unknown_outcome_reconcile(loaded_conn, draft, monkeypatch):
     assert resolved["supplier_order_id"] == "SUP-999"
 
 
-def test_reconcile_no_record_returns_to_approved(loaded_conn, draft, monkeypatch):
+def test_reconcile_no_record_stays_pending_and_retry_succeeds(loaded_conn, draft, monkeypatch):
+    """Replaced the old 'empty lookup -> APPROVED' behavior: absence of a
+    supplier record proves nothing (I2), so the order stays SUBMIT_PENDING and
+    a retry submit (same reference, frozen payload) is the safe exit."""
     oid = draft["order_id"]
     orders.approve(loaded_conn, "SITE-01", oid, draft["content_hash"], "Maya")
     monkeypatch.setattr(orders.supplier, "submit_order",
@@ -90,10 +93,19 @@ def test_reconcile_no_record_returns_to_approved(loaded_conn, draft, monkeypatch
     with pytest.raises(orders.OrderError):
         orders.submit(loaded_conn, "SITE-01", oid)
 
-    # Supplier has no record: the attempt never landed, safe to approve->submit again.
     monkeypatch.setattr(orders.supplier, "lookup_orders", lambda site, ref: [])
-    back = orders.reconcile(loaded_conn, "SITE-01", oid)
-    assert back["status"] == "APPROVED"
+    still = orders.reconcile(loaded_conn, "SITE-01", oid)
+    assert still["status"] == "SUBMIT_PENDING"
+    assert "retry submit" in still["last_error"]
+
+    monkeypatch.setattr(
+        orders.supplier, "submit_order",
+        lambda p: FakeResponse(201, {"order_id": "SUP-RETRY", "status": "accepted",
+                                     "client_reference": p["client_reference"]}),
+    )
+    resolved = orders.submit(loaded_conn, "SITE-01", oid)
+    assert resolved["status"] == "SUBMITTED"
+    assert resolved["supplier_order_id"] == "SUP-RETRY"
 
 
 def test_draft_validation_against_catalog(loaded_conn):

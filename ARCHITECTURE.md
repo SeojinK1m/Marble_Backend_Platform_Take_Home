@@ -46,14 +46,19 @@ Three site-scoped endpoints per ingredient: **purchases** (billed qty × the pac
 
 `DRAFT → APPROVED → (SUBMIT_PENDING) → SUBMITTED | REJECTED`
 
-- Approval requires echoing the draft's exact `content_hash`; submit re-verifies it, so a human approved precisely what is sent.
-- `client_reference` is fixed at draft creation and persisted — restarts and retries reuse it, and the supplier deduplicates on it.
-- `SUBMIT_PENDING` is persisted **before** the HTTP call. If the connection drops after the supplier accepted (the `supplier-timeout` scenario), the order stays `SUBMIT_PENDING` with the error recorded; `reconcile` queries the supplier by reference and either confirms `SUBMITTED` or returns the order to `APPROVED` for a safe resubmit.
+Safety invariants, each covered by a test in `tests/test_invariants.py`:
+
+- **Monotonic:** a `SUBMITTED` order never regresses. Every transition is a conditional update (`... WHERE status = ?`, rowcount-checked), so a stale actor's write is dropped, not applied.
+- **Ambiguity preserved:** `SUBMIT_PENDING` is persisted **before** the HTTP call, and an empty supplier lookup does *not* clear it — absence of a record can't prove the dropped POST won't still land. The only exits are a retry submit (safe: stable `client_reference`, payload frozen at approval, supplier dedupes) or a reconcile that positively finds the order.
+- **Approval binds the payload:** the caller echoes the draft's exact `content_hash`; submit re-verifies it, so a human approved precisely what is sent.
+- **At most one supplier order:** our database guarantees reference stability and payload immutability; the *supplier's* idempotency contract (same reference+payload → 200 existing) guarantees dedup. The invariant is the conjunction — two concurrent submits may both POST, harmlessly, because both carry identical reference and payload.
 
 ## Scale & measurement (see BENCH_RESULTS.json; machine noted inside)
 
-100k-row import ≈ 0.9 s via a bulk fast path used only when a table is empty; re-imports take the full revision-aware path. The pack correction applies in ≈ 0.9 ms touching 2 rows (1 replace + 1 audit) — ~1,000× cheaper than a rebuild, with identical answers verified against a clean rebuild. A reader thread polling the affected query during the update never exceeded 0.5 ms (WAL). Explained improvement: the composite index `(site_id, pos_item_id, business_date)` on `pos_daily` turns the usage scan into an index search (shown via `EXPLAIN QUERY PLAN`).
+100k-row import ≈ 0.9 s via a bulk fast path used only when a table is empty; re-imports take the full revision-aware path. The whole directory imports in **one transaction**: WAL readers see the pre-import snapshot until the single commit (never a partial cross-table state), a crash rolls back everything, and the measured cost was zero (0.9 s before and after the change). The pack correction applies in ≈ 1 ms touching 2 rows (1 replace + 1 audit) — ~850–1,000× cheaper than a rebuild across runs, with identical answers verified against a clean rebuild. A reader thread polling the affected query during the update never exceeded 0.5 ms. Explained improvement: the composite index `(site_id, pos_item_id, business_date)` on `pos_daily` turns the usage scan into an index search (shown via `EXPLAIN QUERY PLAN`).
 
 ## Limits / out of scope
 
 Nested recipes, waste records, a full stock ledger or measured food-cost %, deletions, pagination, production auth, and any UI. The supplier models no prices or delivery; "accepted" ≠ received at the restaurant (surfaced in `gaps`). Single-writer SQLite is a deliberate fit for one operator CLI + many readers; a multi-writer deployment would move to Postgres with the same schema and upsert semantics.
+
+Known residual limits: an order abandoned in `SUBMIT_PENDING` may correspond to an accepted supplier order until someone retries or reconciles — there is no cancel flow, by design (the brief requires one order path). Duplicate concurrent POSTs rely on the supplier honoring its documented dedup contract; we cannot verify that from our side.

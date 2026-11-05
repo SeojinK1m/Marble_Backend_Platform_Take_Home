@@ -39,8 +39,8 @@
         ]
       },
       "latency_ms": {
-        "purchases": 0.15,
-        "usage": 4.33
+        "purchases": 0.17,
+        "usage": 4.26
       },
       "work": {
         "purchases_rows_scanned": 7,
@@ -79,7 +79,7 @@
       },
       "latency_ms": {
         "purchases": 0.07,
-        "usage": 3.78
+        "usage": 3.95
       },
       "work": {
         "purchases_rows_scanned": 7,
@@ -89,17 +89,17 @@
   },
   "update": {
     "outcome": "replaced",
-    "milliseconds": 0.54,
+    "milliseconds": 1.01,
     "rows_written": 2,
     "reader_during_update": {
-      "samples": 25,
-      "p50_ms": 0.16,
-      "max_ms": 0.43
+      "samples": 26,
+      "p50_ms": 0.13,
+      "max_ms": 0.18
     }
   },
   "repeat_update": {
     "outcome": "noop_same",
-    "milliseconds": 0.72,
+    "milliseconds": 0.39,
     "rows_written": 0
   },
   "after": {
@@ -134,8 +134,8 @@
         ]
       },
       "latency_ms": {
-        "purchases": 0.45,
-        "usage": 21.91
+        "purchases": 0.18,
+        "usage": 10.03
       },
       "work": {
         "purchases_rows_scanned": 7,
@@ -173,8 +173,8 @@
         ]
       },
       "latency_ms": {
-        "purchases": 0.24,
-        "usage": 14.66
+        "purchases": 0.13,
+        "usage": 7.27
       },
       "work": {
         "purchases_rows_scanned": 7,
@@ -188,8 +188,8 @@
     "spend unchanged (pack-only correction)"
   ],
   "rebuild": {
-    "seconds": 0.86,
-    "update_vs_rebuild_ratio": "correction is 1,586x cheaper than a full rebuild",
+    "seconds": 0.85,
+    "update_vs_rebuild_ratio": "correction is 847x cheaper than a full rebuild",
     "answers_match": true
   },
   "improvement": {
@@ -198,5 +198,5 @@
       "SEARCH pos_daily USING INDEX idx_pos_daily_item (site_id=?)"
     ]
   },
-  "peak_rss": "156 MB (ru_maxrss=164020224 bytes)"
+  "peak_rss": "156 MB (ru_maxrss=163168256 bytes)"
 }

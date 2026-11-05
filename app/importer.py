@@ -118,35 +118,39 @@ def upsert_record(conn: sqlite3.Connection, table: str, record: dict, source_fil
 
 
 def import_csv_file(conn: sqlite3.Connection, table: str, path: Path, stats: ImportStats) -> None:
+    """Load one CSV. Caller owns the transaction (see import_csv_dir)."""
     source_file = str(path)
     with open(path, newline="") as f:
         rows = list(csv.DictReader(f))
 
-    with conn:
-        is_empty = conn.execute(f"SELECT 1 FROM {table} LIMIT 1").fetchone() is None
-        if is_empty:
-            # Bulk fast path for first import; re-imports take the revision-aware path.
-            cols = registry.TABLES[table]["columns"] + registry.LINEAGE_COLUMNS
-            now = _now()
-            normalized = [_normalize(table, r) for r in rows]
-            conn.executemany(
-                f"INSERT INTO {table} ({', '.join(cols)}) VALUES ({', '.join('?' for _ in cols)})",
-                [list(r.values()) + [content_hash(r), source_file, now] for r in normalized],
-            )
-            for _ in rows:
-                stats.record(table, "inserted")
-        else:
-            for row in rows:
-                stats.record(table, upsert_record(conn, table, row, source_file))
+    is_empty = conn.execute(f"SELECT 1 FROM {table} LIMIT 1").fetchone() is None
+    if is_empty:
+        # Bulk fast path for first import; re-imports take the revision-aware path.
+        cols = registry.TABLES[table]["columns"] + registry.LINEAGE_COLUMNS
+        now = _now()
+        normalized = [_normalize(table, r) for r in rows]
+        conn.executemany(
+            f"INSERT INTO {table} ({', '.join(cols)}) VALUES ({', '.join('?' for _ in cols)})",
+            [list(r.values()) + [content_hash(r), source_file, now] for r in normalized],
+        )
+        for _ in rows:
+            stats.record(table, "inserted")
+    else:
+        for row in rows:
+            stats.record(table, upsert_record(conn, table, row, source_file))
 
 
 def import_csv_dir(conn: sqlite3.Connection, directory: str) -> ImportStats:
     stats = ImportStats()
     d = Path(directory)
-    for table in registry.TABLES:  # registry order: sites first
-        path = d / f"{table}.csv"
-        if path.exists():
-            import_csv_file(conn, table, path, stats)
+    # One transaction for the whole directory: concurrent readers (WAL) see the
+    # pre-import snapshot until the single commit — never a partially imported
+    # cross-table state — and a crash mid-import rolls back everything.
+    with conn:
+        for table in registry.TABLES:  # registry order: sites first
+            path = d / f"{table}.csv"
+            if path.exists():
+                import_csv_file(conn, table, path, stats)
     return stats
 
 

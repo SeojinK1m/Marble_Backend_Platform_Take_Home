@@ -12,17 +12,40 @@ assistance: Claude Code (Fable 5) throughout — transcripts in `transcripts/`.
 
 ## What was verified
 
-- 16 pytest tests pass (importer revisions/conflicts/idempotency, query math and
-  gaps, auth scoping, order state machine incl. unknown-outcome recovery).
-- Live against the simulator: full draft→approve→submit→outcome flow; idempotent
-  resubmit returns the same supplier order; `supplier-timeout` scenario leaves
-  the order `SUBMIT_PENDING` and `reconcile` resolves it to `SUBMITTED` with the
-  supplier's order id (see git history, "verified live" commit).
+- 25 pytest tests pass (importer revisions/conflicts/idempotency, query math and
+  gaps, auth scoping, order state machine, and `tests/test_invariants.py` — see
+  below).
+- An adversarial review round found four real defects, each reproduced with a
+  deterministic failing test *before* the fix (TDD, event-controlled
+  interleavings, no sleeps):
+  1. reconcile turned an ambiguous outcome into `APPROVED` ("definitively
+     unsubmitted") — removed; empty lookup now preserves `SUBMIT_PENDING`;
+  2. unconditional status updates allowed a stale reconcile to regress
+     `SUBMITTED→APPROVED` — all transitions are now conditional
+     (rowcount-checked CAS) and monotone;
+  3. SQLite connections broke when FastAPI tore down a dependency on a
+     different thread — `check_same_thread=False` (request-scoped connections);
+  4. sales before a recipe's `effective_from` were silent zeros — now reported
+     as an explicit unknown gap.
+  Additional concurrency coverage: two simultaneous submits (barrier inside the
+  supplier POST) produce one supplier order and identical duplicate payloads; a
+  stalled POST whose response arrives after reconcile cannot overwrite the
+  recorded outcome; `SUBMIT_PENDING` survives a process restart and reconciles.
+- Directory imports are now one transaction: a paused mid-import reader test
+  proves snapshot isolation (readers see pre-import state, never partial), and
+  an injected crash rolls back everything. Measured cost: none (0.9 s before
+  and after).
+- Live against the simulator: full draft→approve→submit→outcome flow;
+  idempotent resubmit; and the restart drill — `supplier-timeout` armed, submit
+  fails with outcome unknown, **backend process killed and restarted**, order
+  still `SUBMIT_PENDING`, reconcile resolves to `SUBMITTED` with the supplier's
+  order id.
 - Scale (BENCH_RESULTS.json, Apple Silicon/macOS, in-process, perf_counter):
-  102,980 rows imported in ~0.9s; pack correction ~0.9ms touching 2 rows
-  (~1,000x cheaper than rebuild); re-apply is a no-op with 0 writes; affected
-  answer changes (580→540 lb, spend unchanged), control site byte-identical;
-  clean-rebuild answers match; reader latency during the update ≤0.5ms.
+  102,980 rows imported in ~0.9s; pack correction ~1ms touching 2 rows
+  (~850-1,000x cheaper than rebuild across runs); re-apply is a no-op with 0
+  writes; affected answer changes (580→540 lb, spend unchanged), control site
+  byte-identical; clean-rebuild answers match; reader latency during the update
+  ≤0.5ms. No measurable regression from the correctness fixes.
 
 ## Known limitations / unfinished
 
@@ -37,7 +60,12 @@ assistance: Claude Code (Fable 5) throughout — transcripts in `transcripts/`.
   all USD).
 - The bulk import fast path skips per-row conflict checks only when the target
   table is empty, so a first import of a corrupted export with duplicate ids
-  would raise a PK error rather than a recorded conflict.
+  raises a PK error rather than a recorded conflict (the whole import now rolls
+  back cleanly in that case).
+- An order abandoned in SUBMIT_PENDING may correspond to an accepted supplier
+  order until someone retries or reconciles; there is no cancel flow. Duplicate
+  concurrent POSTs rely on the supplier's documented dedup contract, which we
+  cannot verify from our side.
 
 ## AI transcript highlight
 

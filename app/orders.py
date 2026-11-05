@@ -113,11 +113,13 @@ def approve(conn: sqlite3.Connection, site_id: str, order_id: str,
     if content_hash != current:
         raise OrderError(409, "content_hash does not match the draft's exact contents")
     with conn:
-        conn.execute(
+        cur = conn.execute(
             """UPDATE orders SET status=?, approved_hash=?, approved_by=?, approved_at=?,
-                                 updated_at=? WHERE order_id=?""",
-            (APPROVED, current, approved_by, _now(), _now(), order_id),
+                                 updated_at=? WHERE order_id=? AND status=?""",
+            (APPROVED, current, approved_by, _now(), _now(), order_id, DRAFT),
         )
+    if cur.rowcount == 0:
+        raise OrderError(409, "order changed concurrently; re-read and retry")
     return get_order(conn, site_id, order_id)
 
 
@@ -133,10 +135,18 @@ def submit(conn: sqlite3.Connection, site_id: str, order_id: str) -> dict:
     if lines_hash(site_id, order["vendor_id"], lines) != order["approved_hash"]:
         raise OrderError(409, "order contents no longer match the approved hash")
 
-    # Persist the uncertain state BEFORE the network call.
+    # Claim the uncertain state BEFORE the network call. CAS: a concurrent
+    # actor may have resolved the order since our read above.
     with conn:
-        conn.execute("UPDATE orders SET status=?, updated_at=? WHERE order_id=?",
-                     (SUBMIT_PENDING, _now(), order_id))
+        cur = conn.execute(
+            "UPDATE orders SET status=?, updated_at=? WHERE order_id=? AND status IN (?, ?)",
+            (SUBMIT_PENDING, _now(), order_id, APPROVED, SUBMIT_PENDING),
+        )
+    if cur.rowcount == 0:
+        order = get_order(conn, site_id, order_id)
+        if order["status"] == SUBMITTED:
+            return order
+        raise OrderError(409, f'cannot submit from status {order["status"]}')
 
     payload = {
         "client_reference": order["client_reference"],
@@ -150,31 +160,45 @@ def submit(conn: sqlite3.Connection, site_id: str, order_id: str) -> dict:
         # Unknown outcome: the supplier may have recorded the order. Stay
         # SUBMIT_PENDING; retry or reconcile resolves it.
         with conn:
-            conn.execute("UPDATE orders SET last_error=?, updated_at=? WHERE order_id=?",
-                         (f"submit outcome unknown: {exc!r}", _now(), order_id))
+            conn.execute(
+                "UPDATE orders SET last_error=?, updated_at=? WHERE order_id=? AND status=?",
+                (f"submit outcome unknown: {exc!r}", _now(), order_id, SUBMIT_PENDING),
+            )
+        order = get_order(conn, site_id, order_id)
+        if order["status"] == SUBMITTED:
+            return order  # a concurrent actor confirmed it while we were failing
         raise OrderError(
             502, "supplier connection failed; outcome unknown — retry submit or call reconcile"
         )
 
+    # Outcome writes are guarded on SUBMIT_PENDING: if another actor (parallel
+    # submit or reconcile) already recorded an outcome, ours is stale and is
+    # dropped — a SUBMITTED order never regresses (I1).
     if resp.status_code in (200, 201):
         body = resp.json()
         with conn:
             conn.execute(
                 """UPDATE orders SET status=?, supplier_order_id=?, supplier_status=?,
-                                     last_error=NULL, updated_at=? WHERE order_id=?""",
-                (SUBMITTED, body.get("order_id"), body.get("status"), _now(), order_id),
+                                     last_error=NULL, updated_at=?
+                   WHERE order_id=? AND status=?""",
+                (SUBMITTED, body.get("order_id"), body.get("status"), _now(),
+                 order_id, SUBMIT_PENDING),
             )
     elif resp.status_code == 409:
         with conn:
             conn.execute(
-                """UPDATE orders SET status=?, last_error=?, updated_at=? WHERE order_id=?""",
+                """UPDATE orders SET status=?, last_error=?, updated_at=?
+                   WHERE order_id=? AND status=?""",
                 (REJECTED, "supplier 409: reference already used with different contents",
-                 _now(), order_id),
+                 _now(), order_id, SUBMIT_PENDING),
             )
     else:
         with conn:
-            conn.execute("UPDATE orders SET last_error=?, updated_at=? WHERE order_id=?",
-                         (f"supplier {resp.status_code}: {resp.text[:200]}", _now(), order_id))
+            conn.execute(
+                "UPDATE orders SET last_error=?, updated_at=? WHERE order_id=? AND status=?",
+                (f"supplier {resp.status_code}: {resp.text[:200]}", _now(),
+                 order_id, SUBMIT_PENDING),
+            )
         raise OrderError(502, f"supplier returned {resp.status_code}")
     return get_order(conn, site_id, order_id)
 
@@ -186,18 +210,26 @@ def reconcile(conn: sqlite3.Connection, site_id: str, order_id: str) -> dict:
         raise OrderError(409, f'nothing to reconcile from status {order["status"]}')
     matches = supplier.lookup_orders(site_id, order["client_reference"])
     if matches:
+        # Monotone: both allowed source states map to SUBMITTED, so a stale
+        # reconcile can only re-affirm, never regress (I1).
         m = matches[0]
         with conn:
             conn.execute(
                 """UPDATE orders SET status=?, supplier_order_id=?, supplier_status=?,
-                                     last_error=NULL, updated_at=? WHERE order_id=?""",
-                (SUBMITTED, m.get("order_id"), m.get("status"), _now(), order_id),
+                                     last_error=NULL, updated_at=?
+                   WHERE order_id=? AND status IN (?, ?)""",
+                (SUBMITTED, m.get("order_id"), m.get("status"), _now(),
+                 order_id, SUBMIT_PENDING, SUBMITTED),
             )
     elif order["status"] == SUBMIT_PENDING:
-        # Supplier has no record: the failed attempt never landed. Safe to resubmit.
+        # An empty lookup proves nothing: the dropped POST may still land at
+        # the supplier. Preserve the ambiguity (I2) — stay SUBMIT_PENDING; the
+        # safe exit is a retry submit (stable reference, frozen payload, the
+        # supplier dedupes).
         with conn:
             conn.execute(
-                """UPDATE orders SET status=?, last_error=NULL, updated_at=? WHERE order_id=?""",
-                (APPROVED, _now(), order_id),
+                "UPDATE orders SET last_error=?, updated_at=? WHERE order_id=? AND status=?",
+                ("reconcile: supplier has no record yet; retry submit to resolve",
+                 _now(), order_id, SUBMIT_PENDING),
             )
     return get_order(conn, site_id, order_id)
