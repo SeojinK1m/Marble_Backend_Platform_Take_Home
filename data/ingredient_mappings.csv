@@ -1,0 +1,21 @@
+site_id,source_revision,mapping_id,vendor_id,sku,ingredient_id,ingredient_name
+SITE-01,1,MAP-V1-CHICKEN,V1,V1-CHICKEN,ING-CHICKEN,Chicken thigh boneless skinless
+SITE-01,1,MAP-AW-CHK20,V1,AW-CHK20,ING-CHICKEN,Chicken thigh boneless skinless
+SITE-01,1,MAP-V3-RICE,V3,V3-RICE,ING-RICE,"Long grain rice, dry"
+SITE-01,1,MAP-V3-BEANS,V3,V3-BEANS,ING-BEANS,"Black beans, drained"
+SITE-01,1,MAP-V2-PEPPER,V2,V2-PEPPER,ING-PEPPER,"Mixed bell peppers, trimmed"
+SITE-01,1,MAP-V1-EGG,V1,V1-EGG,ING-EGG,Large shell eggs
+SITE-01,1,MAP-V3-TORTILLA,V3,V3-TORTILLA,ING-TORTILLA,6 inch flour tortilla
+SITE-01,1,MAP-V1-CHEESE,V1,V1-CHEESE,ING-CHEESE,Shredded cheddar
+SITE-01,1,MAP-V3-OIL,V3,V3-OIL,ING-OIL,Canola oil
+SITE-01,1,MAP-V2-AVOCADO,V2,V2-AVOCADO,ING-AVOCADO,Whole avocado
+SITE-02,1,MAP-V1-CHICKEN,V1,V1-CHICKEN,ING-CHICKEN,Chicken thigh boneless skinless
+SITE-02,1,MAP-AW-CHK20,V1,AW-CHK20,ING-CHICKEN,Chicken thigh boneless skinless
+SITE-02,1,MAP-V3-RICE,V3,V3-RICE,ING-RICE,"Long grain rice, dry"
+SITE-02,1,MAP-V3-BEANS,V3,V3-BEANS,ING-BEANS,"Black beans, drained"
+SITE-02,1,MAP-V2-PEPPER,V2,V2-PEPPER,ING-PEPPER,"Mixed bell peppers, trimmed"
+SITE-02,1,MAP-V1-EGG,V1,V1-EGG,ING-EGG,Large shell eggs
+SITE-02,1,MAP-V3-TORTILLA,V3,V3-TORTILLA,ING-TORTILLA,6 inch flour tortilla
+SITE-02,1,MAP-V1-CHEESE,V1,V1-CHEESE,ING-CHEESE,Shredded cheddar
+SITE-02,1,MAP-V3-OIL,V3,V3-OIL,ING-OIL,Canola oil
+SITE-02,1,MAP-V2-AVOCADO,V2,V2-AVOCADO,ING-AVOCADO,Whole avocado

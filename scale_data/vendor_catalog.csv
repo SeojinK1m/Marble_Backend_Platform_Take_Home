@@ -1,0 +1,201 @@
+site_id,source_revision,catalog_row_id,vendor_id,sku,description,pack_quantity,pack_unit,order_unit
+SITE-01,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-01,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-01,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-01,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-01,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-01,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-01,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-01,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-01,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-01,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-02,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-02,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-02,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-02,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-02,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-02,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-02,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-02,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-02,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-02,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-03,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-03,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-03,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-03,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-03,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-03,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-03,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-03,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-03,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-03,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-04,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-04,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-04,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-04,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-04,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-04,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-04,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-04,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-04,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-04,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-05,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-05,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-05,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-05,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-05,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-05,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-05,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-05,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-05,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-05,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-06,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-06,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-06,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-06,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-06,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-06,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-06,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-06,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-06,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-06,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-07,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-07,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-07,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-07,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-07,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-07,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-07,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-07,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-07,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-07,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-08,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-08,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-08,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-08,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-08,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-08,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-08,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-08,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-08,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-08,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-09,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-09,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-09,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-09,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-09,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-09,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-09,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-09,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-09,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-09,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-10,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-10,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-10,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-10,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-10,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-10,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-10,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-10,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-10,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-10,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-11,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-11,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-11,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-11,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-11,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-11,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-11,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-11,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-11,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-11,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-12,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-12,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-12,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-12,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-12,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-12,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-12,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-12,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-12,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-12,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-13,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-13,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-13,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-13,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-13,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-13,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-13,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-13,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-13,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-13,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-14,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-14,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-14,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-14,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-14,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-14,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-14,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-14,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-14,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-14,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-15,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-15,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-15,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-15,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-15,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-15,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-15,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-15,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-15,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-15,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-16,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-16,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-16,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-16,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-16,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-16,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-16,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-16,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-16,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-16,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-17,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-17,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-17,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-17,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-17,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-17,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-17,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-17,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-17,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-17,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-18,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-18,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-18,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-18,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-18,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-18,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-18,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-18,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-18,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-18,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-19,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-19,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-19,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-19,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-19,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-19,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-19,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-19,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-19,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-19,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case
+SITE-20,1,CAT-CHICKEN,V1,V1-CHICKEN,Chicken thigh boneless skinless,40,lb,case
+SITE-20,1,CAT-RICE,V3,V3-RICE,"Long grain rice, dry",25,lb,case
+SITE-20,1,CAT-BEANS,V3,V3-BEANS,"Black beans, drained",12,lb,case
+SITE-20,1,CAT-PEPPER,V2,V2-PEPPER,"Mixed bell peppers, trimmed",10,lb,case
+SITE-20,1,CAT-EGG,V1,V1-EGG,Large shell eggs,180,each,case
+SITE-20,1,CAT-TORTILLA,V3,V3-TORTILLA,6 inch flour tortilla,240,each,case
+SITE-20,1,CAT-CHEESE,V1,V1-CHEESE,Shredded cheddar,10,lb,case
+SITE-20,1,CAT-OIL,V3,V3-OIL,Canola oil,35,lb,case
+SITE-20,1,CAT-AVOCADO,V2,V2-AVOCADO,Whole avocado,48,each,case
+SITE-20,1,CAT-CHICKEN20,V1,AW-CHK20,Bnls thigh / skin off 2 x 10lb,20,lb,case

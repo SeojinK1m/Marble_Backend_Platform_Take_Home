@@ -1,0 +1,7 @@
+site_id,source_revision,vendor_id,vendor_name,account_number,delivery_days,last_reviewed
+SITE-01,1,V1,Alder Wholesale,AC-417,"Monday, Thursday",2026-09-14
+SITE-01,1,V2,Juniper Produce,JP-228,"Monday, Wednesday, Friday",2026-09-14
+SITE-01,1,V3,Copper Pantry Supply,CP-609,Monday,2026-09-14
+SITE-02,1,V1,Alder Wholesale,AC-417,"Monday, Thursday",2026-09-14
+SITE-02,1,V2,Juniper Produce,JP-228,"Monday, Wednesday, Friday",2026-09-14
+SITE-02,1,V3,Copper Pantry Supply,CP-609,Monday,2026-09-14

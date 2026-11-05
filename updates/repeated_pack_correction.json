@@ -1,0 +1,17 @@
+{
+  "table": "invoice_lines",
+  "record": {
+    "site_id": "SITE-01",
+    "source_revision": "2",
+    "row_id": "INV-001-L01",
+    "invoice_id": "INV-001",
+    "sku": "V1-CHICKEN",
+    "item_description": "Chicken thigh boneless skinless",
+    "quantity": "2",
+    "unit": "case",
+    "unit_price": "128.00",
+    "line_total": "256.00",
+    "pack_quantity": "20",
+    "pack_unit": "lb"
+  }
+}
