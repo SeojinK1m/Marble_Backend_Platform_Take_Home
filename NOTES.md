@@ -40,12 +40,15 @@ assistance: Claude Code (Fable 5) throughout — transcripts in `transcripts/`.
   fails with outcome unknown, **backend process killed and restarted**, order
   still `SUBMIT_PENDING`, reconcile resolves to `SUBMITTED` with the supplier's
   order id.
-- Scale (BENCH_RESULTS.json, Apple Silicon/macOS, in-process, perf_counter):
-  102,980 rows imported in ~0.9s; pack correction ~1ms touching 2 rows
-  (~850-1,000x cheaper than rebuild across runs); re-apply is a no-op with 0
-  writes; affected answer changes (580→540 lb, spend unchanged), control site
-  byte-identical; clean-rebuild answers match; reader latency during the update
-  ≤0.5ms. No measurable regression from the correctness fixes.
+- Scale (BENCH_RESULTS.json, Apple Silicon/macOS, in-process, perf_counter,
+  5 trials on fresh DBs, median with min-max range): 102,980 rows imported in
+  0.92s (0.907-0.931); pack correction 0.94ms (0.78-1.39) touching 2 rows;
+  reaching the corrected state in place vs rebuilding it (equivalent end
+  states, asserted identical every trial) is median 979x cheaper, worst trial
+  654x; re-apply is a no-op with 0 writes in all trials; affected answer
+  changes (580→540 lb, spend unchanged), control site byte-identical; reader
+  latency during the correction p50 0.12ms / max 0.27ms (86 samples). No
+  measurable regression from the correctness fixes.
 
 ## Known limitations / unfinished
 

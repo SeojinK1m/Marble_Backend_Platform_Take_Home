@@ -1,202 +1,91 @@
 {
   "machine": "macOS-27.0.1-arm64-arm-64bit-Mach-O, 14 cores",
   "python": "3.14.5",
-  "method": "in-process calls, time.perf_counter(); reader thread polls the affected query every ~10ms during the update (separate connection)",
-  "import": {
-    "seconds": 0.9,
-    "rows_written": 102980,
-    "detail": "inserted=102980 replaced=0 noop_same=0 noop_stale=0 conflict=0"
+  "method": "5 trials, fresh database each; in-process calls timed with time.perf_counter(); query latency is the median of 10 repetitions; medians with min-max ranges reported; a reader thread on a separate connection polls the affected query every ~10ms during each correction",
+  "trials": 5,
+  "rows_written_per_import": 102980,
+  "import_seconds": {
+    "median": 0.92,
+    "min": 0.907,
+    "max": 0.931
   },
-  "before": {
-    "affected": {
-      "purchases": {
-        "ingredient_id": "ING-CHICKEN",
-        "period": {
-          "start": "2026-09-14",
-          "end": "2026-10-04"
-        },
-        "purchased": [
-          {
-            "unit": "lb",
-            "total": "580"
-          }
-        ],
-        "spend": "1955.00",
-        "currency": "USD",
-        "invoice_line_count": 7
-      },
-      "usage": {
-        "ingredient_id": "ING-CHICKEN",
-        "period": {
-          "start": "2026-09-14",
-          "end": "2026-10-04"
-        },
-        "theoretical_usage": [
-          {
-            "unit": "lb",
-            "total": "727.66"
-          }
-        ]
-      },
-      "latency_ms": {
-        "purchases": 0.17,
-        "usage": 4.26
-      },
-      "work": {
-        "purchases_rows_scanned": 7,
-        "usage_rows_scanned": 5087
-      }
+  "correction_ms": {
+    "median": 0.94,
+    "min": 0.779,
+    "max": 1.389
+  },
+  "repeat_correction_noop_ms": {
+    "median": 0.258,
+    "min": 0.208,
+    "max": 0.797
+  },
+  "rebuild_vs_correction_ratio": {
+    "median": 979.0,
+    "min": 654.0,
+    "max": 1190.0
+  },
+  "affected_query_ms": {
+    "before": {
+      "median": 0.044,
+      "min": 0.044,
+      "max": 0.048
     },
-    "control": {
-      "purchases": {
-        "ingredient_id": "ING-CHICKEN",
-        "period": {
-          "start": "2026-09-14",
-          "end": "2026-10-04"
-        },
-        "purchased": [
-          {
-            "unit": "lb",
-            "total": "580"
-          }
-        ],
-        "spend": "1955.00",
-        "currency": "USD",
-        "invoice_line_count": 7
-      },
-      "usage": {
-        "ingredient_id": "ING-CHICKEN",
-        "period": {
-          "start": "2026-09-14",
-          "end": "2026-10-04"
-        },
-        "theoretical_usage": [
-          {
-            "unit": "lb",
-            "total": "726.72"
-          }
-        ]
-      },
-      "latency_ms": {
-        "purchases": 0.07,
-        "usage": 3.95
-      },
-      "work": {
-        "purchases_rows_scanned": 7,
-        "usage_rows_scanned": 5080
-      }
+    "after": {
+      "median": 0.108,
+      "min": 0.083,
+      "max": 0.112
     }
   },
-  "update": {
-    "outcome": "replaced",
-    "milliseconds": 1.01,
-    "rows_written": 2,
-    "reader_during_update": {
-      "samples": 26,
-      "p50_ms": 0.13,
-      "max_ms": 0.18
-    }
+  "reader_during_correction_ms": {
+    "samples": 86,
+    "p50": 0.118,
+    "max": 0.269
   },
-  "repeat_update": {
-    "outcome": "noop_same",
-    "milliseconds": 0.39,
-    "rows_written": 0
-  },
-  "after": {
-    "affected": {
-      "purchases": {
-        "ingredient_id": "ING-CHICKEN",
-        "period": {
-          "start": "2026-09-14",
-          "end": "2026-10-04"
-        },
-        "purchased": [
-          {
-            "unit": "lb",
-            "total": "540"
-          }
-        ],
-        "spend": "1955.00",
-        "currency": "USD",
-        "invoice_line_count": 7
+  "answers": {
+    "affected_before": {
+      "ingredient_id": "ING-CHICKEN",
+      "period": {
+        "start": "2026-09-14",
+        "end": "2026-10-04"
       },
-      "usage": {
-        "ingredient_id": "ING-CHICKEN",
-        "period": {
-          "start": "2026-09-14",
-          "end": "2026-10-04"
-        },
-        "theoretical_usage": [
-          {
-            "unit": "lb",
-            "total": "727.66"
-          }
-        ]
-      },
-      "latency_ms": {
-        "purchases": 0.18,
-        "usage": 10.03
-      },
-      "work": {
-        "purchases_rows_scanned": 7,
-        "usage_rows_scanned": 5087
-      }
+      "purchased": [
+        {
+          "unit": "lb",
+          "total": "580"
+        }
+      ],
+      "spend": "1955.00",
+      "currency": "USD",
+      "invoice_line_count": 7
     },
-    "control": {
-      "purchases": {
-        "ingredient_id": "ING-CHICKEN",
-        "period": {
-          "start": "2026-09-14",
-          "end": "2026-10-04"
-        },
-        "purchased": [
-          {
-            "unit": "lb",
-            "total": "580"
-          }
-        ],
-        "spend": "1955.00",
-        "currency": "USD",
-        "invoice_line_count": 7
+    "affected_after": {
+      "ingredient_id": "ING-CHICKEN",
+      "period": {
+        "start": "2026-09-14",
+        "end": "2026-10-04"
       },
-      "usage": {
-        "ingredient_id": "ING-CHICKEN",
-        "period": {
-          "start": "2026-09-14",
-          "end": "2026-10-04"
-        },
-        "theoretical_usage": [
-          {
-            "unit": "lb",
-            "total": "726.72"
-          }
-        ]
-      },
-      "latency_ms": {
-        "purchases": 0.13,
-        "usage": 7.27
-      },
-      "work": {
-        "purchases_rows_scanned": 7,
-        "usage_rows_scanned": 5080
-      }
+      "purchased": [
+        {
+          "unit": "lb",
+          "total": "540"
+        }
+      ],
+      "spend": "1955.00",
+      "currency": "USD",
+      "invoice_line_count": 7
     }
   },
   "checks": [
-    "control answers identical before/after",
-    "affected purchases changed",
-    "spend unchanged (pack-only correction)"
+    "all 5 trials: control answers identical before/after",
+    "all 5 trials: affected purchases changed, spend unchanged",
+    "all 5 trials: repeated correction is noop_same",
+    "all 5 fresh rebuilds converge to identical corrected answers"
   ],
-  "rebuild": {
-    "seconds": 0.85,
-    "update_vs_rebuild_ratio": "correction is 847x cheaper than a full rebuild",
-    "answers_match": true
-  },
   "improvement": {
     "what": "composite index idx_pos_daily_item(site_id, pos_item_id, business_date) narrows the 100k-row sales scan to one site's rows",
     "query_plan": [
       "SEARCH pos_daily USING INDEX idx_pos_daily_item (site_id=?)"
     ]
   },
-  "peak_rss": "156 MB (ru_maxrss=163168256 bytes)"
+  "peak_rss": "151 MB (ru_maxrss=158629888 bytes, process-wide across all trials)"
 }
